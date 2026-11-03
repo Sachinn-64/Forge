@@ -1,0 +1,17 @@
+{
+  "name": "forge",
+  "private": true,
+  "packageManager": "pnpm@9.12.0",
+  "scripts": {
+    "dev": "pnpm --filter @forge/api dev",
+    "typecheck": "pnpm -r typecheck",
+    "db:generate": "pnpm --filter @forge/db generate",
+    "db:migrate": "pnpm --filter @forge/db migrate",
+    "db:studio": "pnpm --filter @forge/db studio",
+    "infra:up": "docker compose -f infra/compose/docker-compose.yml up -d",
+    "infra:down": "docker compose -f infra/compose/docker-compose.yml down"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0"
+  }
+}
