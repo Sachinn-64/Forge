@@ -1,0 +1,11 @@
+name: Deploy
+
+# Manual trigger only. Wired up in Phase 2 (single-node EC2 via Terraform).
+on:
+  workflow_dispatch:
+
+jobs:
+  placeholder:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deploy pipeline not implemented yet (Stage 2)."
