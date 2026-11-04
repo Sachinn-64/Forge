@@ -1,6 +1,7 @@
 {
   "name": "forge",
   "private": true,
+  "license": "MIT",
   "packageManager": "pnpm@9.12.0",
   "scripts": {
     "dev": "pnpm --filter @forge/api dev",

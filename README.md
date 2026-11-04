@@ -226,3 +226,9 @@ Dashboard at `http://localhost:3000`, API at `http://localhost:4000`.
 ## Status
 
 Phase 1 in progress. See `docs/adr/` for decisions and `docs/benchmarks/` for measured results as they land.
+
+---
+
+## License
+
+MIT. See [LICENSE](./LICENSE).
