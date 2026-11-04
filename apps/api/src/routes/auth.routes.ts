@@ -1,7 +1,7 @@
 import { Router } from "express";
 import rateLimit from "express-rate-limit";
 import { z } from "zod";
-import { isProd } from "@forge/shared";
+import { env, isProd } from "@forge/shared";
 import { requireAuth } from "../middleware/auth";
 import { SESSION_COOKIE, SESSION_TTL_MS } from "../lib/session";
 import * as auth from "../services/auth.service";
@@ -13,6 +13,7 @@ const authLimiter = rateLimit({
   limit: 20,
   standardHeaders: "draft-7",
   legacyHeaders: false,
+  skip: () => env.NODE_ENV === "test",
 });
 
 const credentials = z.object({
@@ -34,10 +35,10 @@ const cookieOptions = {
 
 router.post("/register", authLimiter, async (req, res) => {
   const body = registerSchema.parse(req.body);
-  const user = await auth.register(body);
+  const { user, org } = await auth.register(body, req.ip);
   const { token } = await auth.createSession(user.id);
   res.cookie(SESSION_COOKIE, token, cookieOptions);
-  res.status(201).json({ user });
+  res.status(201).json({ user, org });
 });
 
 router.post("/login", authLimiter, async (req, res) => {
@@ -48,13 +49,13 @@ router.post("/login", authLimiter, async (req, res) => {
 });
 
 router.post("/logout", requireAuth, async (req, res) => {
-  await auth.logout(req.sessionToken!);
+  if (req.sessionToken) await auth.logout(req.sessionToken);
   res.clearCookie(SESSION_COOKIE, { path: "/" });
   res.status(204).end();
 });
 
 router.get("/me", requireAuth, (req, res) => {
-  res.json({ user: req.user });
+  res.json({ user: req.user, authMethod: req.authMethod });
 });
 
 export default router;

@@ -13,7 +13,7 @@
 <br />
 
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](./LICENSE)
-[![Status](https://img.shields.io/badge/Status-Phase_1-orange?style=for-the-badge)](#-roadmap)
+[![Status](https://img.shields.io/badge/Status-Phase_2-orange?style=for-the-badge)](#-roadmap)
 [![CI](https://img.shields.io/github/actions/workflow/status/Sachinn-64/Forge/ci.yml?branch=master&style=for-the-badge&label=CI)](https://github.com/Sachinn-64/Forge/actions)
 
 <br />
@@ -340,12 +340,12 @@ Per-org CPU, memory, concurrent builds, running apps and storage limits. Admissi
 
 ## 🗺 Roadmap
 
-![Progress](https://img.shields.io/badge/Progress-Phase_1_of_10-orange?style=flat-square)
+![Progress](https://img.shields.io/badge/Progress-Phase_2_of_10-orange?style=flat-square)
 
 | | Phase | Done when |
 |:-:|:------|:----------|
-| 🟡 | **01 · Foundation** | Monorepo, API, Prisma schema + migrations, auth, orgs, projects, Compose stack |
-| ⚪ | **02 · GitHub** | OAuth, repo picker, verified webhooks, push creates a deployment record |
+| 🟢 | **01 · Foundation** | Monorepo, API, Prisma schema + migrations, auth, orgs, RBAC, projects, API tokens, audit log, tests, CI |
+| 🟡 | **02 · GitHub** | OAuth, repo picker, verified webhooks, push creates a deployment record |
 | ⚪ | **03 · Build Engine** | Worker builds a Docker image from a repo, logs stream, cancel + retry |
 | ⚪ | **04 · Orchestration** | State machine persisted, container starts with limits, health checks gate LIVE |
 | ⚪ | **05 · Networking** | Traefik routes `<app>.forge.local`, HTTPS, custom domains |
@@ -419,6 +419,13 @@ pnpm infra:up                 # postgres + redis
 pnpm db:generate
 pnpm db:migrate
 pnpm dev                      # api on :4000
+```
+
+Run the test suite:
+
+```bash
+pnpm test:prepare             # creates forge_test and applies migrations
+pnpm test
 ```
 
 ```bash
